@@ -2,98 +2,96 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SM Faisalabad</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-html,body{width:100%;overflow-x:hidden;background:#f2f4f5;padding-bottom:70px}
-.header{background:#002f34;color:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+body{background:#f2f4f5;padding-bottom:70px}
+.header{background:#002f34;color:#fff;padding:10px 12px;display:flex;justify-content:space-between;position:sticky;top:0;z-index:100}
 .logo-area{display:flex;align-items:center}
-.logo-area img{height:40px;width:40px;border-radius:10px;background:#fff}
-.sell-btn{background:#fff;color:#002f34;border:none;padding:7px 18px;border-radius:20px;font-weight:900}
+.logo-area img{width:40px;height:40px;border-radius:8px;background:#fff}
+.sell-btn{background:#fff;color:#002f34;padding:7px 18px;border-radius:20px;font-weight:900;border:none}
 .banner{background:#002f34;color:#fff;padding:14px}
-.filters{display:flex;gap:8px;overflow-x:auto;padding:10px;background:#fff}
-.filters button{border:1px solid #002f34;padding:6px 14px;border-radius:20px;background:#fff;font-weight:700}
+.filters{display:flex;gap:8px;overflow:auto;padding:10px;background:#fff}
+.filters button{border:1px solid #002f34;padding:6px 14px;border-radius:20px;background:#fff;font-weight:700;white-space:nowrap}
 .filters button.active{background:#002f34;color:#fff}
-.loc-filter{display:flex;gap:8px;overflow-x:auto;padding:0 10px 10px;background:#fff}
-.loc-filter span{background:#ebeeef;padding:5px 12px;border-radius:14px;font-size:12px}
+.loc-filter{display:flex;gap:8px;overflow:auto;padding:0 10px 10px;background:#fff}
+.loc-filter span{background:#ebeeef;padding:5px 12px;border-radius:14px;font-size:12px;white-space:nowrap}
 .loc-filter span.active{background:#3a77ff;color:#fff}
-.card{background:#fff;border-bottom:8px solid #ebeeef;display:flex;gap:10px;padding:10px}
+.card{background:#fff;border-bottom:8px solid #ebeeef;display:flex;gap:10px;padding:10px;position:relative}
 .card img{width:90px;height:90px;background:#ddd;border-radius:6px}
-.card-info .price{font-weight:900;margin-top:4px}
-.free-badge{position:absolute;right:10px;background:#ffce32;font-size:10px;font-weight:900;padding:2px 6px;border-radius:4px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ccc;display:flex;justify-content:space-around;padding:12px 0;z-index:99999}
-.bottom-nav button{border:none;background:none;font-size:11px;font-weight:700;color:#666}
+.price{font-weight:900}
+.free-badge{position:absolute;right:10px;top:10px;background:#ffce32;font-size:10px;font-weight:900;padding:2px 6px;border-radius:4px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ccc;display:flex;justify-content:space-around;padding:10px 0;z-index:999}
+.bottom-nav button{border:none;background:none;font-size:11px;font-weight:700;color:#666;padding:8px}
 .bottom-nav button.active{color:#002f34}
-.sell-page{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:99999;overflow:auto;padding:12px}
+.bottom-nav button.sell-mid{background:#002f34;color:#fff;border-radius:20px;padding:10px 20px}
+.sell-page{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:1000;overflow:auto;padding:12px}
 .sell-page input,.sell-page select,.sell-page textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;margin:8px 0}
+.plan-box{border:2px solid #ddd;border-radius:10px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.plan-box.active{border-color:#002f34;background:#e8f5e9}
 .post-btn{width:100%;background:#002f34;color:#fff;padding:14px;border:none;border-radius:6px;font-weight:900;margin-top:10px}
 </style>
 </head>
 <body>
 
 <div class="header">
-<div class="logo-area">
-<img src="IMG-20261030-WA8828.jpg">
-<b style="margin-left:8px">SM<br><small style="font-size:10px">FAISALABAD</small></b>
-</div>
+<div class="logo-area"><img src="IMG-20261030-WA8828.jpg"><b style="margin-left:8px">SM<br><small style="font-size:10px">FAISALABAD</small></b></div>
 <button class="sell-btn" onclick="openSell()">+ SELL</button>
 </div>
 
-<div class="banner">
-<b>Samundri Gojra Toba Faisalabad Mureed Wala Market</b><br>
-<small>Buy & Sell in Your City - Free Ad for 7 Days</small>
-</div>
+<div class="banner"><b>Samundri Gojra Toba Faisalabad Market</b><br><small>Buy & Sell in Your City</small></div>
+<div class="filters"><button class="active">All</button><button>Mobiles</button><button>Vehicles</button><button>Property</button><button>Bikes</button></div>
+<div class="loc-filter"><span class="active">All Cities</span><span>Samundri</span><span>Gojra</span><span>Toba</span><span>Faisalabad</span></div>
 
-<div class="filters">
-<button class="active">All</button><button>Mobiles</button><button>Vehicles</button><button>Property</button><button>Bikes</button>
-</div>
-<div class="loc-filter">
-<span class="active">All Cities</span><span>Samundri</span><span>Gojra</span><span>Toba</span><span>Faisalabad</span>
-</div>
-
-<div style="position:relative">
-<div class="card">
-<img src="https://via.placeholder.com/90">
-<div class="card-info"><b>House For Sale 5 Marla Samundri Road</b><div class="price">Rs 55 Lac</div><small>Samundri • 2 hours ago</small></div>
-<div class="free-badge">FREE</div>
-</div>
-</div>
-
-<div style="position:relative">
-<div class="card">
-<img src="https://via.placeholder.com/90">
-<div class="card-info"><b>Honda CD 70 2023 Model - Gojra</b><div class="price">Rs 1,15,000</div><small>Gojra • 5 hours ago</small></div>
-<div class="free-badge">FREE</div>
-</div>
-</div>
+<div class="card"><img src="https://via.placeholder.com/90"><div><b>House For Sale 5 Marla Samundri</b><div class="price">Rs 55 Lac</div><small>Samundri • 2h ago</small></div><div class="free-badge">FREE</div></div>
+<div class="card"><img src="https://via.placeholder.com/90"><div><b>Honda CD 70 2023 - Gojra</b><div class="price">Rs 1,15,000</div><small>Gojra • 5h ago</small></div><div class="free-badge">FREE</div></div>
 
 <div class="bottom-nav">
-<button class="active" onclick="window.scrollTo(0,0)">HOME</button>
-<button onclick="alert('Chats - Coming Soon')">CHATS</button>
-<button onclick="openSell()" style="background:#002f34;color:#fff;border-radius:20px;padding:8px 16px">SELL</button>
-<button onclick="alert('My Ads - Coming Soon')">MY ADS</button>
-<button onclick="alert('Account - Coming Soon')">ACCOUNT</button>
+<button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})">HOME</button>
+<button>CHATS</button>
+<button class="sell-mid" onclick="openSell()">SELL</button>
+<button>MY ADS</button>
+<button>ACCOUNT</button>
 </div>
 
 <div class="sell-page" id="sellPage">
-<h2 style="background:#002f34;color:#fff;padding:12px;margin:-12px -12px 12px">Post Ad - SM Faisalabad <span onclick="closeSell()" style="float:right;cursor:pointer">X</span></h2>
-<input type="text" placeholder="Ad Title">
-<select><option>Samundri</option><option>Gojra</option><option>Toba</option><option>Faisalabad</option><option>Mureed Wala</option></select>
-<select><option>Category - Mobile, Car, Bike, House</option><option>Mobiles</option><option>Cars</option><option>Bikes</option><option>Houses</option></select>
-<input type="number" placeholder="Price Rs">
+<h2 style="background:#002f34;color:#fff;padding:12px;margin:-12px -12px 12px">Post Ad <span onclick="closeSell()" style="float:right">X</span></h2>
+<input placeholder="Ad Title">
+<select><option>Samundri</option><option>Gojra</option><option>Toba</option><option>Faisalabad</option></select>
+<select><option>Category</option><option>Mobiles</option><option>Cars</option><option>Bikes</option><option>Houses</option></select>
+<input placeholder="Price Rs" type="number">
 <textarea placeholder="Description" rows="3"></textarea>
-<input type="text" placeholder="Your Name">
-<input type="text" placeholder="Mobile Number 03XX">
+<input placeholder="Your Name">
+<input placeholder="Mobile Number">
 <input type="file">
-<div style="background:#fff8d7;padding:10px;font-size:12px;border-radius:6px">Fee Rs 100 - Easypaisa 03430864009 - Free 7 Days</div>
-<button class="post-btn" onclick="closeSell();alert('Ad Posted Free!')">POST NOW</button>
+
+<h3 style="margin:12px 0 8px;color:#002f34">Select Plan</h3>
+<div class="plan-box active" onclick="selectPlan(this,0)"><div><b>7 Days</b><br><small>FREE</small></div><b>FREE</b></div>
+<div class="plan-box" onclick="selectPlan(this,299)"><div><b>14 Days</b><br><small>Top Ad</small></div><b>Rs 299</b></div>
+<div class="plan-box" onclick="selectPlan(this,999)"><div><b>30 Days</b><br><small>Premium + Top</small></div><b>Rs 999</b></div>
+
+<div id="payBox" style="background:#fff8d7;padding:12px;border-radius:8px;font-size:13px;margin-top:10px;display:none">
+<b>Easypaisa: 03430864009</b><br>Amount: <span id="payAmount">Rs 0</span>
+</div>
+
+<button class="post-btn" id="postBtn" onclick="closeSell()">POST NOW - FREE</button>
 <button style="width:100%;padding:10px;margin-top:8px;background:#eee;border:none;border-radius:6px" onclick="closeSell()">Cancel</button>
 </div>
 
 <script>
+let selectedPrice=0;
 function openSell(){document.getElementById('sellPage').style.display='block'}
 function closeSell(){document.getElementById('sellPage').style.display='none'}
+function selectPlan(el,price){
+document.querySelectorAll('.plan-box').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
+selectedPrice=price;
+let payBox=document.getElementById('payBox');
+let postBtn=document.getElementById('postBtn');
+if(price==0){payBox.style.display='none';postBtn.innerText='POST NOW - FREE';}
+else{payBox.style.display='block';document.getElementById('payAmount').innerText='Rs '+price;postBtn.innerText='POST NOW - Rs '+price;}
+}
 </script>
 </body>
 </html>
