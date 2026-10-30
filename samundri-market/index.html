@@ -6,26 +6,27 @@
 <title>SAMUNDRI MARKET</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#f2f4f5;padding-bottom:70px}
-.header{background:#002f34;color:#fff;padding:12px;display:flex;justify-content:space-between;position:sticky;top:0}
-.logo{font-weight:900}
+body{background:#f2f4f5;padding-bottom:80px}
+.header{background:#002f34;color:#fff;padding:12px;display:flex;justify-content:space-between;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:18px}
 .sell-btn{background:#fff;color:#002f34;padding:6px 16px;border-radius:20px;font-weight:800;border:none}
 .nav{background:#fff;padding:8px;display:flex;gap:8px;overflow:auto}
-.fbtn{padding:6px 12px;border-radius:15px;border:1px solid #002f34;background:#fff;font-size:12px}
+.fbtn{padding:6px 12px;border-radius:15px;border:1px solid #002f34;background:#fff;font-size:13px}
 .fbtn.active{background:#002f34;color:#fff}
 .card{background:#fff;margin:8px;border-radius:8px;padding:10px;display:flex;gap:10px;border:1px solid #ddd}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:6px 0;border-top:1px solid #ddd}
-.bitem{font-size:10px;text-align:center;color:#888}
-.bitem.active{color:#002f34;font-weight:700}
+.card img{width:90px;height:70px;object-fit:cover;border-radius:6px;background:#eee}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:8px 0;border-top:2px solid #002f34;height:65px;align-items:center}
+.bitem{font-size:12px;text-align:center;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px}
+.bitem.active{color:#002f34;font-weight:900}
+.bicon{font-size:22px;line-height:1}
 .page{display:none}.page.active{display:block}
 .box{background:#fff;margin:8px;border-radius:8px;padding:12px}
 .inp{width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;margin:6px 0}
 .plan{border:2px solid #ddd;border-radius:8px;padding:10px;margin:8px 0}
 .plan.sel{border-color:#002f34;background:#e8f5e9}
 .payb{background:#fff3cd;padding:8px;border-radius:6px;font-size:12px;margin-top:6px;border:1px solid #ffc107}
-.btn{background:#002f34;color:#fff;width:100%;padding:12px;border:none;border-radius:6px;font-weight:700}
-.chat{background:#fff;padding:10px;border-bottom:1px solid #eee;display:flex;gap:10px}
-.av{width:40px;height:40px;background:#002f34;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+.btn{background:#002f34;color:#fff;width:100%;padding:12px;border:none;border-radius:6px;font-weight:700;margin-top:8px}
+.prev{width:100%;max-height:150px;object-fit:cover;border-radius:6px;margin-top:6px;display:none}
 </style>
 </head>
 <body>
@@ -35,32 +36,38 @@ body{background:#f2f4f5;padding-bottom:70px}
 <div class="box" style="background:#3a77ff;color:#fff;text-align:center"><b>Sell Fast Now - 10x Buyers Faisalabad!</b><br><small>FREE for 7 Days</small></div>
 <div id="list"></div>
 </div>
-<div id="chat" class="page"><div class="box"><h3>Buyer Chats</h3><small>Yahan buyers aapse chat karenge (Private)</small></div><div id="clist"></div></div>
-<div id="sell" class="page"><div class="box"><h3>Post Ad - SAMUNDRI MARKET</h3>
+<div id="chat" class="page"><div class="box"><h3>💬 Buyer Chats</h3></div><div id="clist"></div></div>
+<div id="sell" class="page"><div class="box"><h3>➕ Post Ad with Photo</h3>
 <input class="inp" id="t" placeholder="Title e.g. iPhone 14">
 <input class="inp" id="p" type="number" placeholder="Price Rs">
-<select class="inp" id="c"><option>Mobiles</option><option>Vehicles</option><option>Property</option><option>Electronics</option></select>
-<h3>Choose Plan - Sell Fast Now</h3>
-<div class="plan sel" onclick="selP(this,'free')"><b>FREE - 7 Days - Rs.0 - FREE</b><br><small>Live 7 days - Auto Approved</small></div>
-<div class="plan" onclick="selP(this,'fast')"><b>FAST - 14 Days - Rs.299 - POPULAR</b><br><small>Top 3 days + Featured</small><div class="payb" style="display:none"><b>Payment: Easypaisa Account 03430864009 (Atiq ur Rehman) - Rs.299 - Screenshot upload required</b></div></div>
-<div class="plan" onclick="selP(this,'super')"><b>SUPER FAST - 30 Days - Rs.1199 - BEST</b><br><small>TOP + Homepage + 10x Buyers</small><div class="payb" style="display:none"><b>Payment: Easypaisa Account 03430864009 (Atiq ur Rehman) - Rs.1199 - Screenshot upload required</b></div></div>
-<div id="payUp" style="display:none"><div class="payb"><b>REQUIRED: Upload Payment Screenshot for verification. Admin will approve after checking Easypaisa account.</b></div><input class="inp" type="file" id="ps" accept="image/*"></div>
-<button class="btn" onclick="postA()">Post Now</button>
+<b>Ad Photo (Required):</b><input class="inp" type="file" id="adImg" accept="image/*" onchange="prevImg(this,'p1')"><img id="p1" class="prev">
+<h3>Choose Plan</h3>
+<div class="plan sel" onclick="selP(this,'free')"><b>🏷️ FREE - 7 Days - Rs.0</b><br><small>Live 7 days FREE</small></div>
+<div class="plan" onclick="selP(this,'fast')"><b>🚀 FAST - 14 Days - Rs.299</b><div class="payb" style="display:none"><b>Easypaisa: 03430864009 (Atiq ur Rehman) - Rs.299</b></div></div>
+<div class="plan" onclick="selP(this,'super')"><b>⭐ SUPER FAST - 30 Days - Rs.1199</b><div class="payb" style="display:none"><b>Easypaisa: 03430864009 (Atiq ur Rehman) - Rs.1199</b></div></div>
+<div id="payUp" style="display:none"><b>Payment Screenshot:</b><input class="inp" type="file" id="ps" accept="image/*" onchange="prevImg(this,'p2')"><img id="p2" class="prev"></div>
+<button class="btn" onclick="postA()">Post Now with Photo</button>
 </div></div>
-<div id="profile" class="page"><div class="box"><h3>My Profile</h3><p>Location: Samundri, Faisalabad</p><b>My Ads: <span id="cnt">0</span></b></div><div id="mylist"></div><div class="box"><button class="btn" style="background:#d32f2f" onclick="showP('admin')">Admin Panel - Owner Only</button></div></div>
-<div id="admin" class="page"><div class="box"><h3>Admin Panel - Atiq ur Rehman</h3><p>Easypaisa Account: 03430864009 - Check payment then approve</p><small>Private - Only owner can see</small></div><div id="alist"></div></div>
-<div class="bottom"><div class="bitem active" onclick="showP('home')">HOME</div><div class="bitem" onclick="showP('chat')">CHATS</div><div class="bitem" onclick="showP('sell')">SELL</div><div class="bitem" onclick="showP('profile')">MY ADS</div></div>
+<div id="profile" class="page"><div class="box"><h3>👤 My Profile - Samundri</h3><b>My Ads: <span id="cnt">0</span></b></div><div id="mylist"></div><div class="box"><button class="btn" style="background:#d32f2f" onclick="showP('admin')">🔒 Admin Panel - Owner Only</button></div></div>
+<div id="admin" class="page"><div class="box"><h3>🔒 Admin Panel - Easypaisa: 03430864009</h3></div><div id="alist"></div></div>
+<div class="bottom">
+<div class="bitem active" onclick="showP('home')"><span class="bicon">🏠</span><span>HOME</span></div>
+<div class="bitem" onclick="showP('chat')"><span class="bicon">💬</span><span>CHATS</span></div>
+<div class="bitem" onclick="showP('sell')"><span class="bicon">➕</span><span>SELL</span></div>
+<div class="bitem" onclick="showP('profile')"><span class="bicon">👤</span><span>MY ADS</span></div>
+</div>
 <script>
-let ads=[{title:"5 Marla House Samundri",price:5500000,loc:"Samundri",time:"Yesterday",plan:"free"},{title:"Honda CD 70 2024",price:125000,loc:"Samundri",time:"Today",plan:"free"}];
-let sel='free';
-function showP(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');if(p=='chat')renderC();if(p=='profile')renderM();if(p=='admin')renderA();}
-function selP(el,pl){document.querySelectorAll('.plan').forEach(x=>{x.classList.remove('sel');x.querySelector('.payb').style.display='none'});el.classList.add('sel');if(el.querySelector('.payb'))el.querySelector('.payb').style.display='block';sel=pl;document.getElementById('payUp').style.display=(pl=='free')?'none':'block';}
-function render(){let h='';ads.forEach(a=>{h+=`<div class="card"><div><div style="font-weight:800">Rs ${a.price} ${a.plan!='free'?'<span style=background:#fff3cd;padding:2px 5px;border-radius:3px;font-size:9px>FEATURED</span>':'<span style=background:#d4edda;padding:2px 5px;border-radius:3px;font-size:9px>FREE</span>'}</div><div>${a.title}</div><div style="font-size:10px;color:#888">${a.loc} - ${a.time}</div></div></div>`});document.getElementById('list').innerHTML=h;}
-function postA(){let tt=document.getElementById('t').value;let pp=document.getElementById('p').value;if(!tt||!pp){alert('Enter Title and Price');return}if(sel!='free'&&!document.getElementById('ps').value){alert('For Rs.299 / Rs.1199, Payment Screenshot REQUIRED! Easypaisa Account 03430864009 pe payment karke screenshot upload karein. Without payment ad FEATURED nahi hoga aur PENDING rahega.');return}let st=(sel=='free')?'LIVE 7 Days FREE':'PENDING PAYMENT - Admin will verify Easypaisa 03430864009';ads.unshift({title:tt,price:pp,loc:"Samundri",time:st,plan:sel});render();alert(sel=='free'?'Ad Posted LIVE!':'Ad Submitted as PENDING! Admin Easypaisa 03430864009 check karke approve karega.');showP('home');}
-function renderC(){document.getElementById('clist').innerHTML=`<div class="chat"><div class="av">A</div><div><b>Ali - Honda Buyer</b><br><small>Is this available? - 2m ago (Demo)</small></div></div><div class="chat"><div class="av">H</div><div><b>Ahmed - House Buyer</b><br><small>Final price? - 1h ago (Demo)</small></div></div>`;}
-function renderM(){document.getElementById('cnt').innerText=ads.length;let h='';ads.forEach(a=>{h+=`<div class="card"><div>Rs ${a.price} - ${a.title}<br><small>${a.time}</small></div></div>`});document.getElementById('mylist').innerHTML=h;}
-function renderA(){let h='';ads.forEach(a=>{let pend=a.time.includes('PENDING');h+=`<div class="box" style="border-left:4px solid ${pend?'red':'green'}"><b>${a.title} - Rs ${a.price}</b><br><small>${a.time}</small><br>${pend?'<span style=color:red><b>PENDING PAYMENT - Check Easypaisa 03430864009</b></span>':'<span style=color:green>APPROVED FREE</span>'}<br><button onclick="alert('Payment Verified! Ad is now FEATURED!')" style="padding:6px 12px;background:#002f34;color:#fff;border:none;border-radius:4px;margin-top:6px">Approve Payment</button></div>`});document.getElementById('alist').innerHTML=h;}
+let ads=[{title:"5 Marla House Samundri",price:5500000,loc:"Samundri - Yesterday",plan:"free",img:"https://via.placeholder.com/90x70?text=House"},{title:"Honda CD 70 2024",price:125000,loc:"Samundri - Today",plan:"free",img:"https://via.placeholder.com/90x70?text=Bike"}];
+let sel='free'; let tmpImg='';
+function showP(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.bitem').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');let idx={home:0,chat:1,sell:2,profile:3,admin:3}[p];if(idx!=undefined)document.querySelectorAll('.bitem')[idx].classList.add('active');if(p=='chat')renderC();if(p=='profile')renderM();if(p=='admin')renderA();}
+function selP(el,pl){document.querySelectorAll('.plan').forEach(x=>{x.classList.remove('sel');if(x.querySelector('.payb'))x.querySelector('.payb').style.display='none'});el.classList.add('sel');if(el.querySelector('.payb'))el.querySelector('.payb').style.display='block';sel=pl;document.getElementById('payUp').style.display=(pl=='free')?'none':'block';}
+function prevImg(inp,id){let f=inp.files[0];if(!f)return;let r=new FileReader();r.onload=e=>{document.getElementById(id).src=e.target.result;document.getElementById(id).style.display='block';if(id=='p1')tmpImg=e.target.result;};r.readAsDataURL(f);}
+function render(){let h='';ads.forEach(a=>{h+=`<div class="card"><img src="${a.img}"><div><div style="font-weight:800">Rs ${a.price} <span style=background:#d4edda;padding:2px 5px;border-radius:3px;font-size:9px>${a.plan=='free'?'FREE':'PAID'}</span></div><div>${a.title}</div><div style="font-size:10px;color:#888">${a.loc}</div></div></div>`});document.getElementById('list').innerHTML=h;}
+function postA(){let tt=document.getElementById('t').value;let pp=document.getElementById('p').value;if(!tt||!pp){alert('Title aur Price likho');return}if(!tmpImg){alert('Ad Photo LAZMI hai!');return}if(sel!='free'&&!document.getElementById('ps').value){alert('Rs.299 / Rs.1199 ke liye Payment Screenshot LAZMI hai! Easypaisa 03430864009');return}let st=(sel=='free')?'LIVE 7 Days FREE':'PENDING - Easypaisa check hoga';ads.unshift({title:tt,price:pp,loc:"Samundri - "+st,plan:sel,img:tmpImg});render();alert('Ad Posted! Photo ke saath LIVE!');tmpImg='';showP('home');}
+function renderC(){document.getElementById('clist').innerHTML=`<div style="padding:10px;background:#fff;border-bottom:1px solid #eee"><b>Ali - Honda Buyer</b><br><small>Demo chat - Is this available?</small></div>`;}
+function renderM(){document.getElementById('cnt').innerText=ads.length;let h='';ads.forEach(a=>{h+=`<div class="card"><img src="${a.img}"><div>Rs ${a.price} - ${a.title}<br><small>${a.loc}</small></div></div>`});document.getElementById('mylist').innerHTML=h;}
+function renderA(){let h='';ads.forEach(a=>{h+=`<div class="box" style="border-left:4px solid ${a.plan=='free'?'green':'red'}"><img src="${a.img}" style="width:100%;max-height:120px;object-fit:cover;border-radius:6px"><br><b>${a.title} - Rs ${a.price}</b><br><small>${a.loc}</small></div>`});document.getElementById('alist').innerHTML=h;}
 render();
 </script>
 </body>
-                                                         </html>
+</html>
