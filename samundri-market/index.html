@@ -1,87 +1,185 @@
-<!-- YE SELL PAGE KA PROMOTION WALA HISSA HAI -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SM Faisalabad Market - Samundri Gojra Toba</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f5f5;padding-bottom:70px}
+.header{background:#002f34;color:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-weight:900;font-size:18px}.logo span{color:#23e5db}
+.search-bar{background:#fff;padding:8px 12px;display:flex;gap:8px;position:sticky;top:44px;z-index:99}
+.search-bar input{flex:1;padding:10px;border:1px solid #ccc;border-radius:4px}
+.search-bar button{background:#002f34;color:#fff;border:none;padding:0 16px;border-radius:4px;font-weight:700}
+.filters{display:flex;gap:6px;padding:10px 12px;overflow-x:auto;white-space:nowrap;background:#fff;border-bottom:1px solid #ddd}
+.fchip{border:1px solid #002f34;padding:6px 12px;border-radius:20px;font-size:12px;background:#fff;color:#002f34;cursor:pointer}
+.fchip.active{background:#002f34;color:#fff}
+.ads{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+@media(min-width:600px){.ads{grid-template-columns:1fr 1fr 1fr 1fr}}
+.ad-card{background:#fff;border-radius:6px;overflow:hidden;border:1px solid #ddd}
+.ad-card img{width:100%;height:140px;object-fit:cover;background:#eee}
+.ad-info{padding:8px}.ad-price{font-weight:900;font-size:16px;color:#002f34}
+.ad-title{font-size:13px;color:#333;margin:4px 0;height:32px;overflow:hidden}
+.ad-loc{font-size:11px;color:#888}
+.ad-chat{margin-top:6px;background:#002f34;color:#fff;border:none;width:100%;padding:8px;border-radius:4px;font-weight:700;font-size:12px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:6px 0;z-index:200}
+.nav-item{text-align:center;font-size:10px;color:#666;cursor:pointer;flex:1}
+.nav-item b{display:block;font-size:18px}.nav-item.active{color:#002f34}
+.nav-item.sell b{background:#002f34;color:#fff;width:48px;height:32px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 2px;font-size:22px}
+.page{display:none;padding:12px;min-height:60vh;background:#f5f5f5}.page.active{display:block}
+.sell-form{background:#fff;padding:14px;border-radius:8px;border:1px solid #ddd}
+.sell-form input,.sell-form textarea,.sell-form select{width:100%;padding:10px;margin:6px 0 12px;border:1px solid #ccc;border-radius:4px}
+.plan-box{border:2px solid #ddd;padding:10px;border-radius:8px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;background:#fff}
+.plan-box.active{border-color:#002f34;background:#e8f6f5}
+.post-btn{width:100%;background:#002f34;color:#fff;padding:14px;border:none;border-radius:8px;font-weight:900;margin-top:12px;font-size:15px}
+.wa-float{position:fixed;bottom:70px;right:12px;background:#25D366;color:#fff;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;z-index:300;text-decoration:none}
+.nochat{text-align:center;padding:40px 20px;color:#666}
+</style>
+</head>
+<body>
+<div class="header"><div class="logo">SM <span>FAISALABAD</span> MARKET</div><div style="font-size:11px">Samundri | Gojra | Toba</div></div>
+<div class="search-bar"><input id="searchInput" placeholder="Find Cars, Mobiles, Property..." oninput="filterAds()"><button onclick="filterAds()">Search</button></div>
+<div class="filters" id="catFilters">
+<button class="fchip active" onclick="setCat(this,'all')">All</button>
+<button class="fchip" onclick="setCat(this,'mobile')">Mobiles</button>
+<button class="fchip" onclick="setCat(this,'vehicle')">Vehicles</button>
+<button class="fchip" onclick="setCat(this,'property')">Property</button>
+<button class="fchip" onclick="setCat(this,'bike')">Bikes</button>
+<button class="fchip" onclick="setCat(this,'fashion')">Fashion</button>
+</div>
+<div class="filters" id="cityFilters">
+<button class="fchip active" onclick="setCity(this,'all')">All Cities</button>
+<button class="fchip" onclick="setCity(this,'samundri')">Samundri</button>
+<button class="fchip" onclick="setCity(this,'gojra')">Gojra</button>
+<button class="fchip" onclick="setCity(this,'toba')">Toba Tek Singh</button>
+<button class="fchip" onclick="setCity(this,'faisalabad')">Faisalabad</button>
+</div>
+
+<div id="homePage" class="page active" style="padding:0"><div class="ads" id="adsGrid"></div></div>
+
+<div id="chatsPage" class="page">
+<h3 style="color:#002f34">Chats</h3>
+<div id="chatList">
+<div class="nochat"><div style="font-size:60px">💬</div><h4>No Chats Yet</h4><p style="font-size:13px;margin-top:8px">Buyer yahan se seller ko WhatsApp karega</p><br>
+<div id="activeChatBox" style="display:none;background:#fff;padding:12px;border-radius:8px;border:1px solid #ddd;text-align:left">
+<b id="chatAdTitle">Ad Title</b><br><small id="chatSellerInfo">Seller: </small>
+<textarea id="chatMsg" placeholder="Salam Bhai, ye item available hai?" style="width:100%;margin:10px 0;padding:10px;border:1px solid #ccc;border-radius:6px"></textarea>
+<button onclick="sendToSellerWA()" style="background:#25D366;color:#fff;border:none;padding:10px;width:100%;border-radius:6px;font-weight:900">Send to Seller WhatsApp</button>
+</div></div></div>
+</div>
+
+<div id="sellPage" class="page">
+<div class="sell-form">
+<h3>Post Your Ad</h3>
+<input id="adTitle" placeholder="Ad Title *">
+<input id="adPrice" placeholder="Price *" type="number">
+<select id="adCat"><option value="mobile">Mobile</option><option value="vehicle">Vehicle</option><option value="property">Property</option><option value="bike">Bike</option><option value="fashion">Fashion</option><option value="other">Other</option></select>
+<select id="adCity"><option value="samundri">Samundri</option><option value="gojra">Gojra</option><option value="toba">Toba Tek Singh</option><option value="faisalabad">Faisalabad</option></select>
+<textarea id="adDesc" placeholder="Description *"></textarea>
+<input id="adWA" placeholder="Your WhatsApp * 0343xxxxxxx" type="tel">
+<input id="adImage" type="file" accept="image/*">
+
 <h3 style="margin:12px 0 8px;color:#002f34">Select Promotion Plan *</h3>
+<div class="plan-box active" onclick="selectPlan(this,0)"><div><b>✅ 7 Days Plan</b><br><small>FREE - Koi Fee Nahi</small></div><b style="color:green">FREE</b></div>
+<div class="plan-box" onclick="selectPlan(this,299)"><div><b>⭐ 14 Days Plan</b><br><small>Top Ad + Zyada Views</small></div><b>Rs 299</b></div>
+<div class="plan-box" onclick="selectPlan(this,999)"><div><b>👑 30 Days Plan</b><br><small>Premium + Urgent Badge + Top</small></div><b>Rs 999</b></div>
 
-<div class="plan-box active" onclick="selectPlan(this,0)">
-<div><b>✅ 7 Days Plan</b><br><small>FREE - Koi Fee Nahi</small></div>
-<b style="color:green">FREE</b>
-</div>
-
-<div class="plan-box" onclick="selectPlan(this,299)">
-<div><b>⭐ 14 Days Plan</b><br><small>Top Ad + Zyada Views</small></div>
-<b>Rs 299</b>
-</div>
-
-<div class="plan-box" onclick="selectPlan(this,999)">
-<div><b>👑 30 Days Plan</b><br><small>Premium + Urgent Badge + Top</small></div>
-<b>Rs 999</b>
-</div>
-
-<div id="payBox" style="background:linear-gradient(135deg,#fff8e1,#fff3c4);border:2px solid #ff9800;padding:16px;border-radius:12px;margin-top:14px;display:none;box-shadow:0 2px 8px rgba(255,152,0,.2)">
-<div style="text-align:center">
-<div style="background:#ff9800;color:#fff;display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:900">PROMOTION FEE</div>
-</div>
-<br>
-<b style="color:#002f34;font-size:16px">💰 Easypaisa Payment Details</b><br>
-<small style="color:#666">Ye fee sirf ad ko upar dikhane ke liye hai</small>
+<div id="payBox" style="background:linear-gradient(135deg,#fff8e1,#fff3c4);border:2px solid #ff9800;padding:16px;border-radius:12px;margin-top:14px;display:none">
+<div style="text-align:center"><div style="background:#ff9800;color:#fff;display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:900">PROMOTION FEE</div></div><br>
+<b style="color:#002f34;font-size:16px">💰 Easypaisa Payment Details</b><br><small style="color:#666">Ye fee sirf ad ko upar dikhane ke liye hai</small>
 <hr style="margin:10px 0;border:none;border-top:1px dashed #ff9800">
-
 <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid #ffce32">
-<b style="font-size:12px;color:#666">EASYPAISA NUMBER:</b><br>
-<span style="font-size:22px;font-weight:900;color:#002f34;letter-spacing:1px">03430864009</span><br>
-<b style="font-size:12px;color:#666">ACCOUNT NAME:</b><br>
-<span style="font-size:16px;font-weight:900;color:#000">Atiq Ur Rehman</span><br><br>
-
-<b style="font-size:12px;color:#666">AMOUNT TO PAY:</b><br>
-<span id="payAmount" style="font-size:20px;font-weight:900;color:#25D366">Rs 0</span>
-</div>
-
-<br>
+<b style="font-size:12px;color:#666">EASYPAISA NUMBER:</b><br><span style="font-size:22px;font-weight:900;color:#002f34">03430864009</span><br>
+<b style="font-size:12px;color:#666">ACCOUNT NAME:</b><br><span style="font-size:16px;font-weight:900;color:#000">Atiq Ur Rehman</span><br><br>
+<b style="font-size:12px;color:#666">AMOUNT TO PAY:</b><br><span id="payAmount" style="font-size:20px;font-weight:900;color:#25D366">Rs 0</span>
+</div><br>
 <div style="background:#fff;padding:10px;border-radius:8px;font-size:12px;line-height:1.6">
 <b>📝 Payment Ka Tarika:</b><br>
-1️⃣ Easypaisa App kholo<br>
-2️⃣ Send Money → Easypaisa Account<br>
-3️⃣ Number likho: <b>03430864009</b><br>
-4️⃣ Name check karo: <b>Atiq Ur Rehman</b><br>
-5️⃣ Amount bhejo: <span id="payAmount2">Rs 0</span><br>
-6️⃣ Screenshot le lo
+1️⃣ Easypaisa App kholo<br>2️⃣ Send Money → Easypaisa Account<br>3️⃣ Number: <b>03430864009</b><br>4️⃣ Name: <b>Atiq Ur Rehman</b><br>5️⃣ Amount: <span id="payAmount2">Rs 0</span><br>6️⃣ Screenshot lo
+</div><br>
+<button onclick="window.open('https://wa.me/923430864009?text=Salam Atiq Bhai, Maine Promotion Fee Bheji Hai - Easypaisa: 03430864009 (Atiq Ur Rehman) - Amount: '+document.getElementById('payAmount').innerText,'_blank')" style="background:#25D366;color:#fff;border:none;padding:14px;width:100%;border-radius:10px;font-weight:900">📤 Payment Screenshot WhatsApp Pe Bhejo</button>
+<small style="color:green;display:block;margin-top:10px;text-align:center;font-weight:700">✅ Payment verify hote hi ad 1 ghante me TOP pe active!</small>
+</div>
+<button class="post-btn" id="postBtn" onclick="handlePost()">POST NOW - FREE</button>
+</div>
 </div>
 
-<br>
-<button onclick="window.open('https://wa.me/923430864009?text=Salam Atiq Bhai, Maine Promotion Fee Bheji Hai - Easypaisa: 03430864009 (Atiq Ur Rehman) - Amount: '+document.getElementById('payAmount').innerText+' - SM Faisalabad Market - Screenshot bhej raha hun','_blank')" style="background:#25D366;color:#fff;border:none;padding:14px;width:100%;border-radius:10px;font-weight:900;font-size:14px;box-shadow:0 2px 6px rgba(37,211,102,.4)">
-📤 Payment Screenshot WhatsApp Pe Bhejo
-</button>
+<div id="myAdsPage" class="page"><h3 style="color:#002f34">My Ads</h3><div class="nochat"><h4>No Ads Yet</h4></div></div>
+<div id="accountPage" class="page"><h3 style="color:#002f34">My Account</h3><div style="background:#fff;padding:14px;border-radius:8px;border:1px solid #ddd;margin-top:12px"><b>Easypaisa:</b><br><span style="font-size:18px;font-weight:900">03430864009</span><br><b>Atiq Ur Rehman</b><br><br><a href="https://wa.me/923430864009" style="color:#25D366;font-weight:900;text-decoration:none">WhatsApp Support</a></div></div>
 
-<small style="color:green;display:block;margin-top:10px;text-align:center;font-weight:700">✅ Payment verify hote hi ad 1 ghante me TOP pe active ho jayega!</small>
+<div class="bottom-nav">
+<div class="nav-item active" onclick="openPage('homePage',this)"><b>🏠</b>HOME</div>
+<div class="nav-item" onclick="openPage('chatsPage',this)"><b>💬</b>CHATS</div>
+<div class="nav-item sell" onclick="openPage('sellPage',this)"><b>＋</b>SELL</div>
+<div class="nav-item" onclick="openPage('myAdsPage',this)"><b>📄</b>MY ADS</div>
+<div class="nav-item" onclick="openPage('accountPage',this)"><b>👤</b>ACCOUNT</div>
 </div>
-
-<button class="post-btn" id="postBtn" onclick="handlePost()" style="width:100%;background:#002f34;color:#fff;padding:14px;border:none;border-radius:8px;font-weight:900;margin-top:12px">POST NOW - FREE</button>
+<a class="wa-float" href="https://wa.me/923430864009" target="_blank">W</a>
 
 <script>
+let currentCat='all',currentCity='all',selectedPrice=0,activeAd=null;
+const adsData=[
+{title:"iPhone 14 Pro Max 256GB PTA",price:285000,loc:"Samundri",cat:"mobile",city:"samundri",img:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400",wa:"923340000001"},
+{title:"Toyota Corolla 2019 XLI",price:3850000,loc:"Gojra",cat:"vehicle",city:"gojra",img:"https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400",wa:"923340000002"},
+{title:"5 Marla House For Sale Gojra",price:7500000,loc:"Gojra",cat:"property",city:"gojra",img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400",wa:"923340000003"},
+{title:"Honda 125 2023 Model",price:185000,loc:"Toba Tek Singh",cat:"bike",city:"toba",img:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400",wa:"923340000004"},
+{title:"Dhaka Export Garments Stock",price:4500,loc:"Faisalabad",cat:"fashion",city:"faisalabad",img:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400",wa:"923430864009"},
+{title:"Samsung S23 Ultra",price:195000,loc:"Samundri",cat:"mobile",city:"samundri",img:"https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?w=400",wa:"923340000005"}
+];
+function renderAds(){
+const grid=document.getElementById('adsGrid');
+const q=document.getElementById('searchInput').value.toLowerCase();
+grid.innerHTML='';
+adsData.filter(a=>{
+const ms=!q||a.title.toLowerCase().includes(q);
+const mc=currentCat==='all'||a.cat===currentCat;
+const mcity=currentCity==='all'||a.city===currentCity;
+return ms&&mc&&mcity;
+}).forEach(ad=>{
+grid.innerHTML+=`<div class="ad-card" onclick="openChat('${ad.title}','${ad.wa}')"><img src="${ad.img}" onerror="this.src='https://via.placeholder.com/400x300?text=SM+Market'"><div class="ad-info"><div class="ad-price">Rs ${ad.price.toLocaleString()}</div><div class="ad-title">${ad.title}</div><div class="ad-loc">${ad.loc}</div><button class="ad-chat">Chat - Buy Now</button></div></div>`;
+});
+}
+function filterAds(){renderAds();}
+function setCat(el,cat){document.querySelectorAll('#catFilters .fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');currentCat=cat;renderAds();}
+function setCity(el,city){document.querySelectorAll('#cityFilters .fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');currentCity=city;renderAds();}
+function openPage(pageId,navEl){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(pageId).classList.add('active');
+document.querySelectorAll('.bottom-nav .nav-item').forEach(n=>n.classList.remove('active'));
+if(navEl) navEl.classList.add('active');
+window.scrollTo(0,0);
+}
+function openChat(title,wa){
+openPage('chatsPage',null);
+document.querySelectorAll('.bottom-nav .nav-item')[1].classList.add('active');
+document.getElementById('activeChatBox').style.display='block';
+document.getElementById('chatAdTitle').innerText=title;
+document.getElementById('chatSellerInfo').innerText='Seller WhatsApp: '+wa;
+activeAd={title,wa};
+}
+function sendToSellerWA(){
+const msg=document.getElementById('chatMsg').value||'Salam Bhai, ye item available hai?';
+if(!activeAd) return alert('Pehle koi ad select karo');
+const url=`https://wa.me/${activeAd.wa}?text=${encodeURIComponent(msg+' - Ad: '+activeAd.title+' (SM Faisalabad Market)')}`;
+window.open(url,'_blank');
+}
 function selectPlan(el,price){
 document.querySelectorAll('.plan-box').forEach(b=>b.classList.remove('active'));
 el.classList.add('active');
 let payBox=document.getElementById('payBox');
 let postBtn=document.getElementById('postBtn');
-if(price==0){
-payBox.style.display='none';
-postBtn.innerText='POST NOW - FREE';
-postBtn.style.background='#002f34';
-}else{
-payBox.style.display='block';
-document.getElementById('payAmount').innerText='Rs '+price;
-document.getElementById('payAmount2').innerText='Rs '+price;
-postBtn.innerText='PAY Rs '+price+' & POST AD - Atiq Ur Rehman';
-postBtn.style.background='#ff9800';
-window.scrollTo({top: document.getElementById('payBox').offsetTop - 20, behavior:'smooth'});
-}
+selectedPrice=price;
+if(price==0){payBox.style.display='none';postBtn.innerText='POST NOW - FREE';postBtn.style.background='#002f34';}
+else{payBox.style.display='block';document.getElementById('payAmount').innerText='Rs '+price;document.getElementById('payAmount2').innerText='Rs '+price;postBtn.innerText='PAY Rs '+price+' & POST AD';postBtn.style.background='#ff9800';setTimeout(()=>{document.getElementById('payBox').scrollIntoView({behavior:'smooth',block:'center'});},200);}
 }
 function handlePost(){
-let isFree = document.querySelector('.plan-box.active').innerHTML.includes('FREE');
-if(isFree){
-alert('✅ Ad Submitted! FREE plan - Ad 2 ghante me active ho jayega - SM Faisalabad');
-closeAll();
-}else{
-alert('⚠️ Pehle Easypaisa 03430864009 (Atiq Ur Rehman) pe payment bhejo - Phir WhatsApp pe screenshot bhejo - Tab ad TOP pe lagega!');
+let t=document.getElementById('adTitle').value;
+if(!t){alert('Title likho');return;}
+if(selectedPrice==0){alert('✅ Ad Submitted! FREE plan - Ad 2 ghante me active ho jayega');openPage('homePage',document.querySelectorAll('.bottom-nav .nav-item')[0]);}
+else{alert('⚠️ Pehle Easypaisa 03430864009 (Atiq Ur Rehman) pe Rs '+selectedPrice+' bhejo - Phir WhatsApp pe screenshot bhejo!');}
 }
-}
+renderAds();
 </script>
+</body>
+</html>
